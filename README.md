@@ -1,0 +1,105 @@
+[online-bhanu-store index.html.html](https://github.com/user-attachments/files/24415169/online-bhanu-store.index.html.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Bhanu Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',sans-serif;background:#f7f7f7;color:#222}
+    header{background:linear-gradient(135deg,#000,#444);color:#fff;padding:25px;text-align:center}
+    header h1{margin:0;font-size:32px}
+    header p{opacity:.8}
+    .container{padding:30px;max-width:1200px;margin:auto}
+    h2{margin-bottom:20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+    .card{background:#fff;border-radius:15px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.08);transition:.3s}
+    .card:hover{transform:translateY(-6px)}
+    .card img{width:100%;height:320px;object-fit:cover}
+    .card .info{padding:15px}
+    .card h3{margin:0 0 8px;font-size:18px}
+    .price{color:#e91e63;font-weight:600;font-size:16px}
+    button{background:#000;color:#fff;border:none;padding:10px 15px;width:100%;border-radius:8px;cursor:pointer;font-size:14px}
+    button:hover{background:#222}
+    .box{background:#fff;border-radius:15px;padding:20px;margin-top:30px;box-shadow:0 6px 16px rgba(0,0,0,.08)}
+    footer{background:#111;color:#fff;text-align:center;padding:15px;margin-top:40px}
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🛍️ Online Bhanu Store</h1>
+  <p>Trendy Fashion • Best Quality • Best Price</p>
+</header>
+
+<div class="container">
+  <h2>✨ Our Trending Dresses</h2>
+  <div class="grid" id="products"></div>
+
+  <div class="box">
+    <h2>🛒 Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <h3 id="total"></h3>
+    <button onclick="placeOrder()">Order on WhatsApp</button>
+  </div>
+
+  <div class="box">
+    <h2>💳 Payment</h2>
+    <p>UPI / GPay / PhonePe</p>
+    <p><strong>UPI ID:</strong> yourupi@bank</p>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Online Bhanu Store</p>
+</footer>
+
+<script>
+  let products=[
+    {id:1,name:'Women Floral Kurti',price:999,img:'https://images.unsplash.com/photo-1618354691321-6c9e5f9d16c5'},
+    {id:2,name:'Women Party Dress',price:1599,img:'https://images.unsplash.com/photo-1542060748-10c28b62716c'},
+    {id:3,name:'Men Casual Shirt',price:899,img:'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf'},
+    {id:4,name:'Men Denim Jeans',price:1299,img:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246'}
+  ];
+
+  let cart=[];
+
+  function renderProducts(){
+    const box=document.getElementById('products');
+    box.innerHTML='';
+    products.forEach(p=>{
+      box.innerHTML+=`<div class='card'>
+        <img src='${p.img}'>
+        <div class='info'>
+          <h3>${p.name}</h3>
+          <div class='price'>₹${p.price}</div>
+          <button onclick='addToCart(${p.id})'>Add to Cart</button>
+        </div>
+      </div>`;
+    });
+  }
+
+  function addToCart(id){cart.push(products.find(p=>p.id===id));renderCart()}
+
+  function renderCart(){
+    const list=document.getElementById('cartItems');
+    list.innerHTML='';let sum=0;
+    cart.forEach(i=>{sum+=i.price;list.innerHTML+=`<li>${i.name} - ₹${i.price}</li>`});
+    document.getElementById('total').innerText='Total: ₹'+sum;
+  }
+
+  function placeOrder(){
+    if(!cart.length)return alert('Cart empty');
+    const phone='919000000000';
+    let msg='Order from Online Bhanu Store:%0A';
+    cart.forEach(i=>msg+=`${i.name} - ₹${i.price}%0A`);
+    window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
+  }
+
+  renderProducts();
+</script>
+
+</body>
+</html>
